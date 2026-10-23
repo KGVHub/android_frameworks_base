@@ -9043,7 +9043,7 @@ public class PackageManagerService extends IPackageManager.Stub
                     if (ps != null) {
                         ApplicationInfo ai = PackageParser.generateApplicationInfo(p, flags,
                                 ps.readUserState(userId), userId);
-                        if (ai != null) {
+                        if (ai != null && ai.enabled) {
                             finalList.add(ai);
                         }
                     }

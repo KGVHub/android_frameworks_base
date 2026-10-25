@@ -1333,8 +1333,11 @@ public class PackageManagerServiceUtils {
         // There are several items that need to be combined together to safely
         // identify cached items. In particular, changing the value of certain
         // feature flags should cause us to invalidate any caches.
+        // KGV FusionX: plus the build time. The incremental version can stay the same across
+        // builds, and system APKs all carry the same fixed timestamp, so a new build would
+        // otherwise reuse stale parsed packages (e.g. old resource ids crashing SystemUI).
         final String cacheName = FORCE_PACKAGE_PARSED_CACHE_ENABLED ? "debug"
-                : Build.VERSION.INCREMENTAL;
+                : Build.VERSION.INCREMENTAL + "-" + Build.TIME;
 
         // Reconcile cache directories, keeping only what we'd actually use.
         for (File cacheDir : FileUtils.listFilesOrEmpty(cacheBaseDir)) {
